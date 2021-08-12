@@ -2,7 +2,7 @@ var PLAY = 1;
 var END = 0;
 var gameState = PLAY;
 //
-var xpost = 170
+var xpost = 280
 var ypost= 100
 
 var trex, trex_running, trex_collided;
@@ -39,16 +39,16 @@ function preload(){
 function setup() {
   createCanvas(600,200);
   //background(bgimg);
-  
+
+  backg= createSprite(0,150,600,200)
+  backg.addImage("backgroundimg",bgimg)
+  backg.scale=2.8
+  //backg.velocityX = -(2);
+
   trex = createSprite(50,180,20,50);
   trex.addAnimation("running", trex_running);
   trex.addAnimation("collided", trex_collided);
   trex.scale = 0.5;
-
-  backg= createSprite(0,150,600,200)
-  backg.addImage("backgroundimg",bgimg)
-  backg.scale=2.2
-  //backg.velocityX = -(2);
   
   ground = createSprite(200,180,400,20);
   ground.addImage("ground",groundImage);
@@ -83,10 +83,14 @@ function setup() {
 
 function draw() {
    background("lightblue");
-   bgimg.x= camera.position.x - 150
+   //bgimg.x= camera.position.x - 150
 
      if (backg.x < 100){
-    //backg.x = backg.width+100;
+    backg.x = backg.width+100;
+  }
+
+  if(camera.position.x > 450){
+    camera.position.x = xpost
   }
   
   if (gameState===PLAY){
@@ -98,7 +102,7 @@ function draw() {
    // backg.velocityX = -(2);
 //
     trex.x = camera.position.x - 150
-    backg.x= camera.position.x +200
+    //backg.x= camera.position.x +200
     invisibleGround.x =camera.position.x - 150
   
     if(keyDown("space") && trex.y >= 159) {
